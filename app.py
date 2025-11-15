@@ -9,82 +9,87 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # ---
-# 1. PROXY SETUP
-# ---
-# This is the proxy your network requires
-# NOTE: This proxy is for your local network and will not be used by Render.
-# Render has its own direct connection to the internet.
-proxies = {
-    "http": "http://edcguest:edcguest@172.31.102.29:3128",
-    "https": "http://edcguest:edcguest@172.31.102.29:3128"
-}
-
-# ---
-# 2. TMDB API KEY
+# 1. TMDB API KEY
 # ---
 TMDB_API_KEY = "3a9c8777be4fc606e8cf6b00aff9a86e"
 
 
 # ---
-# 3. FETCH_POSTER FUNCTION (using TMDB)
+# 2. UPDATED FUNCTION: fetch_movie_details
 # ---
-def fetch_poster(movie_id):
+def fetch_movie_details(movie_id):
     """
-    Fetches a movie poster from the TMDB API using the movie ID.
+    Fetches details (summary, rating, cast) from the TMDB API.
     """
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=en-US"
+    details = {
+        "summary": "No summary found.",
+        "rating": "N/A",
+        "cast": []
+    }
 
+    # 1. Get Summary and Rating
     try:
-        # When running locally, we use the proxy.
-        # When deployed on Render, this 'proxies' variable won't be used.
-        # We will use Render's "Environment Variables" to run without a proxy.
-        # For now, this is correct for your local machine:
-        response = requests.get(url, proxies=proxies, verify=False, timeout=5)
-        response.raise_for_status()  # Check for HTTP errors
-
+        url_details = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}&language=en-US"
+        # --- NO PROXY ---
+        response = requests.get(url_details, verify=False, timeout=5)
+        response.raise_for_status()
         data = response.json()
 
-        if "poster_path" in data and data["poster_path"]:
-            return "https://image.tmdb.org/t/p/w500" + data['poster_path']
-        else:
-            # Don't show an error for missing poster, just return empty
-            return ""
+        details["summary"] = data.get("overview", "No summary found.")
+        details["rating"] = data.get("vote_average", "N/A")
 
     except Exception as e:
-        # Don't show error in the app, just print to log and return empty
-        print(f"Error fetching poster for {movie_id}: {e}")
-        return ""
+        print(f"Error fetching details for {movie_id}: {e}")
+        # Continue to try fetching credits
+
+    # 2. Get Cast (Actors/Actresses)
+    try:
+        url_credits = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={TMDB_API_KEY}&language=en-US"
+        # --- NO PROXY ---
+        response_credits = requests.get(url_credits, verify=False, timeout=5)
+        response_credits.raise_for_status()
+        data_credits = response_credits.json()
+
+        # Get the top 5 cast members
+        if "cast" in data_credits:
+            details["cast"] = [actor["name"] for actor in data_credits["cast"][:5]]
+
+    except Exception as e:
+        print(f"Error fetching credits for {movie_id}: {e}")
+        details["cast"] = ["Could not load cast."]
+
+    return details
 
 
 # ---
-# 4. RECOMMEND FUNCTION (with time.sleep)
+# 3. RECOMMEND FUNCTION (No changes needed)
 # ---
 def recommend(movie):
     index = movies[movies['title'] == movie].index[0]
     distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
 
     recommended_movie_names = []
-    recommended_movie_posters = []
+    recommended_movie_details = []
 
     for i in distances[1:6]:
         # Get the TMDB movie_id and title from the DataFrame
         movie_id = movies.iloc[i[0]].movie_id
         movie_title = movies.iloc[i[0]].title
 
-        # Pass the movie_id to fetch_poster
-        recommended_movie_posters.append(fetch_poster(movie_id))
+        # Pass the movie_id to fetch details
         recommended_movie_names.append(movie_title)
+        recommended_movie_details.append(fetch_movie_details(movie_id))
 
-        # Add a small delay to avoid rate-limiting by the proxy/API
+        # Keep the delay to avoid rate-limiting by the API server
         time.sleep(0.3)
 
-    return recommended_movie_names, recommended_movie_posters
+    return recommended_movie_names, recommended_movie_details
 
 
 # ---
-# 5. STREAMLIT UI (with correct indentation)
+# 4. STREAMLIT UI (No changes needed)
 # ---
-st.header('🎬 Movie Recommender System Using Machine Learning')
+st.header('🎬 Movie Recommender System')
 
 movies_dict = pickle.load(open('movies_dict.pkl', 'rb'))
 movies = pd.DataFrame(movies_dict)
@@ -93,12 +98,28 @@ similarity = pickle.load(open('similarity.pkl', 'rb'))
 movie_list = movies['title'].values
 selected_movie = st.selectbox("Type or select a movie from the dropdown", movie_list)
 
-# This block is now correctly indented
 if st.button('Show Recommendation'):
-    recommended_movie_names, recommended_movie_posters = recommend(selected_movie)
-    cols = st.columns(5)
+
+    # Get the names and details
+    names, details = recommend(selected_movie)
+
+    st.subheader("Recommended Movies:")
+
+    # Use st.expander for each movie
     for i in range(5):
-        with cols[i]:
-            st.text(recommended_movie_names[i])
-            if recommended_movie_posters[i]:
-                st.image(recommended_movie_posters[i])
+        with st.expander(f"**{i + 1}. {names[i]}**"):
+
+            # Display Rating (and format it)
+            rating = details[i]['rating']
+            if isinstance(rating, (float, int)):
+                st.markdown(f"**TMDb Rating:** {rating:.1f} / 10")
+            else:
+                st.markdown(f"**TMDb Rating:** {rating}")
+
+            # Display Summary
+            st.markdown("**Summary:**")
+            st.write(details[i]['summary'])
+
+            # Display Cast
+            st.markdown("**Starring:**")
+            st.write(", ".join(details[i]['cast']))
