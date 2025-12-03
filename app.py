@@ -6,6 +6,15 @@ import pandas as pd
 # --- CONFIGURATION ---
 TMDB_API_KEY = "3a9c8777be4fc606e8cf6b00aff9a86e"
 
+# ⚠️ IMPORTANT: Set this to False when deploying to Render!
+# Render cannot connect to your private proxy (172.x.x.x).
+USE_PROXY = False
+
+PROXY_CONFIG = {
+    "http": "http://edcguest:edcguest@172.31.102.29:3128",
+    "https": "http://edcguest:edcguest@172.31.102.29:3128"
+}
+
 
 # --- 1. DATA LOADING ---
 @st.cache_resource
@@ -37,7 +46,7 @@ def fetch_movie_details(movie_id):
 
         # LOGIC: Use proxy if enabled, otherwise direct connection
         if USE_PROXY:
-            response = requests.get(url, timeout=5, verify=False)
+            response = requests.get(url, proxies=PROXY_CONFIG, timeout=5, verify=False)
         else:
             response = requests.get(url, timeout=5)
 
