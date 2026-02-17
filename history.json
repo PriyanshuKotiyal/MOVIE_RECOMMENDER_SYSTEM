@@ -1,0 +1,222 @@
+[
+    {
+        "timestamp": "2026-02-17 09:50:09",
+        "user": "User",
+        "inputs": [
+            "Ender's Game"
+        ],
+        "genres": [],
+        "recommendations": [
+            "Allegiant",
+            "Divergent",
+            "The Helix... Loaded",
+            "Space Pirate Captain Harlock",
+            "The 5th Wave"
+        ]
+    },
+    {
+        "timestamp": "2026-02-17 09:48:34",
+        "user": "User",
+        "inputs": [
+            "(500) Days of Summer"
+        ],
+        "genres": [
+            "Romance"
+        ],
+        "recommendations": [
+            "Harrison Montgomery",
+            "Amidst the Devil's Wings",
+            "Divine Secrets of the Ya-Ya Sisterhood",
+            "Sardaarji",
+            "Winnie Mandela"
+        ]
+    },
+    {
+        "timestamp": "2026-02-17 09:48:19",
+        "user": "User",
+        "inputs": [
+            "(500) Days of Summer"
+        ],
+        "genres": [],
+        "recommendations": [
+            "Harrison Montgomery",
+            "Amidst the Devil's Wings",
+            "Divine Secrets of the Ya-Ya Sisterhood",
+            "Sardaarji",
+            "Winnie Mandela"
+        ]
+    },
+    {
+        "timestamp": "2026-02-17 09:31:29",
+        "user": "User",
+        "inputs": [
+            "Avengers: Age of Ultron",
+            "Captain America: The First Avenger",
+            "The Avengers"
+        ],
+        "genres": [
+            "Action"
+        ],
+        "recommendations": [
+            "Captain America: Civil War",
+            "The Helix... Loaded",
+            "Amidst the Devil's Wings",
+            "Harrison Montgomery",
+            "Khiladi 786"
+        ]
+    },
+    {
+        "timestamp": "2026-02-17 09:30:47",
+        "user": "User",
+        "inputs": [
+            "(500) Days of Summer",
+            "The Notebook",
+            "Titanic"
+        ],
+        "genres": [],
+        "recommendations": [
+            "Death Calls",
+            "The Loss of Sexual Innocence",
+            "Harrison Montgomery",
+            "Amidst the Devil's Wings",
+            "Lovely, Still"
+        ]
+    },
+    {
+        "timestamp": "2026-02-16 20:57:50",
+        "user": "User",
+        "inputs": [
+            "(500) Days of Summer",
+            "10 Things I Hate About You",
+            "Airborne"
+        ],
+        "genres": [],
+        "recommendations": [
+            "Harrison Montgomery",
+            "The Helix... Loaded",
+            "Amidst the Devil's Wings",
+            "Khiladi 786",
+            "Sardaarji"
+        ]
+    },
+    {
+        "timestamp": "2026-02-16 20:51:03",
+        "user": "User",
+        "inputs": [
+            "The Avengers",
+            "RoboCop",
+            "Ender's Game"
+        ],
+        "genres": [],
+        "recommendations": [
+            "The Helix... Loaded",
+            "Amidst the Devil's Wings",
+            "Harrison Montgomery",
+            "Khiladi 786",
+            "Sardaarji"
+        ]
+    },
+    {
+        "timestamp": "2026-02-16 20:41:12",
+        "user": "User",
+        "inputs": [
+            "Batman v Superman: Dawn of Justice",
+            "Pirates of the Caribbean: At World's End",
+            "Poseidon"
+        ],
+        "genres": [
+            "Adventure",
+            "Drama",
+            "Crime"
+        ],
+        "recommendations": [
+            "Amidst the Devil's Wings",
+            "The Helix... Loaded",
+            "Harrison Montgomery",
+            "Khiladi 786",
+            "Death Calls",
+            "Sardaarji",
+            "The Loss of Sexual Innocence",
+            "The Circle",
+            "Nighthawks",
+            "Raise the Titanic"
+        ]
+    },
+    {
+        "timestamp": "2026-02-16 20:40:36",
+        "user": "User",
+        "inputs": [
+            "Spider-Man 3",
+            "Batman v Superman: Dawn of Justice",
+            "Man of Steel"
+        ],
+        "genres": [
+            "Adventure",
+            "Drama",
+            "Crime"
+        ],
+        "recommendations": [
+            "The Helix... Loaded",
+            "Amidst the Devil's Wings",
+            "Harrison Montgomery",
+            "Khiladi 786",
+            "Death Calls",
+            "Sardaarji",
+            "The Circle",
+            "The Loss of Sexual Innocence",
+            "Nighthawks",
+            "Down & Out With The Dolls"
+        ]
+    },
+    {
+        "timestamp": "2026-02-16 20:40:16",
+        "user": "User",
+        "inputs": [
+            "Spider-Man 3",
+            "Batman v Superman: Dawn of Justice",
+            "Man of Steel"
+        ],
+        "genres": [
+            "Adventure",
+            "Drama"
+        ],
+        "recommendations": [
+            "The Helix... Loaded",
+            "Amidst the Devil's Wings",
+            "Harrison Montgomery",
+            "Khiladi 786",
+            "Death Calls",
+            "Sardaarji",
+            "The Circle",
+            "The Loss of Sexual Innocence",
+            "Nighthawks",
+            "Down & Out With The Dolls"
+        ]
+    },
+    {
+        "timestamp": "2026-02-16 20:39:51",
+        "user": "User",
+        "inputs": [
+            "Spider-Man 3",
+            "Batman v Superman: Dawn of Justice",
+            "Man of Steel"
+        ],
+        "genres": [
+            "Adventure",
+            "Documentary",
+            "Comedy"
+        ],
+        "recommendations": [
+            "The Helix... Loaded",
+            "Amidst the Devil's Wings",
+            "Harrison Montgomery",
+            "Khiladi 786",
+            "Death Calls",
+            "Sardaarji",
+            "The Circle",
+            "The Loss of Sexual Innocence",
+            "Nighthawks",
+            "Down & Out With The Dolls"
+        ]
+    }
+]

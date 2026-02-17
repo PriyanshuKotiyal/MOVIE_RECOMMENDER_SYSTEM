@@ -1,0 +1,18 @@
+# Ignore heavy data files (You must keep these local or use Git LFS)
+*.pkl
+*.faiss
+
+# Ignore PyCharm settings
+.idea/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore Virtual Environment (if you have one)
+venv/
+.env
+
+# CRITICAL: Ignore Secrets (Never upload your passwords!)
+.streamlit/
+session.json
